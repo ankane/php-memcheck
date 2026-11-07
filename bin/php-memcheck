@@ -6,6 +6,11 @@ if ($argc < 2) {
     exit(1);
 }
 
+if (!function_exists('pcntl_exec')) {
+    fwrite(STDERR, "Platform not supported\n");
+    exit(1);
+}
+
 function searchPath($command)
 {
     $paths = explode(PATH_SEPARATOR, getenv('PATH'));

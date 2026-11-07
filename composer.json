@@ -14,8 +14,7 @@
     ],
     "bin": ["bin/php-memcheck"],
     "require": {
-        "php": ">= 8.2",
-        "ext-pcntl": ">= 8.2"
+        "php": ">= 8.2"
     },
     "require-dev": {
         "ext-ffi": ">= 8.2",
