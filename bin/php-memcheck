@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+if ($argc < 2) {
+    fwrite(STDERR, "Usage: php-memcheck [command]\n");
+    exit(1);
+}
+
+function searchPath($command)
+{
+    $paths = explode(PATH_SEPARATOR, getenv('PATH'));
+    foreach ($paths as $path) {
+        $file = $path . '/' . $command;
+        if (is_executable($file)) {
+            return $file;
+        }
+    }
+    return null;
+}
+
+$valgrind = searchPath('valgrind');
+if (is_null($valgrind)) {
+    fwrite(STDERR, "Valgrind not found\n");
+    exit(1);
+}
+
+$suppressions = __DIR__ . '/../suppressions/php.supp';
+$args = [
+    '--tool=memcheck',
+    '--leak-check=full',
+    '--trace-children=yes',
+    '--suppressions=' . $suppressions,
+    '--error-exitcode=1',
+    '--quiet'
+];
+$args = array_merge($args, array_slice($argv, 1));
+
+putenv('PHP_MEMCHECK_RUNNING=1');
+
+set_error_handler(function ($errno, $errstr) {
+    fwrite(STDERR, $errstr . "\n");
+}, E_WARNING);
+
+pcntl_exec($valgrind, $args);
+exit(1);

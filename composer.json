@@ -1,0 +1,27 @@
+{
+    "name": "ankane/php-memcheck",
+    "description": "Check PHP FFI bindings for memory issues",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/ankane/php-memcheck/issues",
+        "source": "https://github.com/ankane/php-memcheck"
+    },
+    "authors": [
+        {
+            "name": "Andrew Kane",
+            "email": "andrew@ankane.org"
+        }
+    ],
+    "bin": ["bin/php-memcheck"],
+    "require": {
+        "php": ">= 8.2",
+        "ext-pcntl": ">= 8.2"
+    },
+    "require-dev": {
+        "ext-ffi": ">= 8.2",
+        "phpunit/phpunit": "^11"
+    },
+    "scripts": {
+        "test": "phpunit tests"
+    }
+}
