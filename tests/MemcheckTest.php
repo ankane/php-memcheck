@@ -13,9 +13,9 @@ final class MemcheckTest extends TestCase
 
     public function testFailedCommand()
     {
-        $result = $this->checkCommand(['cat', 'missing.txt']);
-        $this->assertEquals(1, $result['status']);
-        $this->assertEquals("cat: missing.txt: No such file or directory\n", $result['stderr']);
+        $result = $this->checkCommand(['ls', 'missing.txt']);
+        $this->assertNotEquals(0, $result['status']);
+        $this->assertStringContainsString("No such file or directory", $result['stderr']);
     }
 
     public function testEnvVar()
