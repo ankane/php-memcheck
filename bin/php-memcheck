@@ -7,7 +7,7 @@ if ($argc < 2) {
 }
 
 if (!function_exists('pcntl_exec')) {
-    fwrite(STDERR, "Platform not supported\n");
+    fwrite(STDERR, "pcntl extension not available\n");
     exit(1);
 }
 
